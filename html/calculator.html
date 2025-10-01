@@ -3,6 +3,9 @@
     <head>
         <title>kayob.cpp</title>
         <meta charset="utf-8">
+        <!--Necessário para o realce de sintáxe-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-coy.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="../css/style.css">
         <link rel="icon" href="../imgs/ISO_C++_Logo.png">
     </head>
     <body>
@@ -10,11 +13,111 @@
             <h1>Calculadora em C++ que usa os argumentos passados para a função <i>main</i></h1>
         </header>
         <div>
-            <h2>Tíiiiitulo</h2>
-            <p>Ainda não há nada por qui ;)</p>
+            <h2>Primeiro post do blog!</h2>
+
+            <p>Bom, este é o meu primeiro <i>blog</i> e o intuito da existência dele é documentar coisas e projetos que eu for desenvolvendo ao longo do tempo, preferêncialmente projetos ou feitos que, como meu TCC, sejam grandes ou que então eu possa esquecer com facilidade no futuro. Mas vou abrir uma exceção para este pequeno código por ser o meu primeiro <i>post</i>.</p>
+
+            <p>Tive a ideia de criar este blog ao ler um post do <a href="https://akitaonrails.com/">Fábio Akita</a> no seu blog <a href="https://akitaonrails.com/">AkitaOnRails</a> em que, em um certo trecho, ele falava da importância de um programador, primeiramente, escrever para si mesmo - como um <i>backup</i> das informações - e depois como uma forma de aprimorar a sua forma de se explicar algo e ser, de certa maneira, mais didático.</p>
+
+            <h2>Ideia que deu origem ao código</h2>
+
+            <p>Um dia desses estava pensando em como eu iria começar a fazer o meu TCC para o técnico quando me lembrei de um trecho do vídeo do Fábio, no seu canal do Youtube - <a href="https://www.youtube.com/watch?v=SNyh-cubxaU&t=473s">Linguagem Compilada vs Interpretada | Qual é melhor?</a> - em que ele mostrava um exemplo, a "linguagem de programação mais idiota do mundo". Basicamente, o exemplo era de um cósdigo em JS que lia, por meio de um comando no terminal, um arquivo de texto definido como <i>.stupid</i> que armazenava uma expressão do tipo <i>3 add 2</i> ou <i>3 sub 1</i> e exibia o resultado na tela.</p>
+
+            <p>Com isso, eu pensei: "Por que não fazer a minha própria versão desse código? Não é difícil fazer leitura de arquivos em C++". E foi daí que surgiu esse pequeno projeto.</p>
+
+            <!--<p>Junto a isso, como já dito anteriormente, li um post do blog do mesmo - <a href="https://akitaonrails.com/2025/09/10/meu-novo-blog-como-eu-fiz/">Meu Novo Blog - Como Eu Fiz</a>. Então, juntando as duas ideias, comecei a documentar o processo nesta pequena página</p>-->
+
+            <p><i>OBS: no caso, pela falta de tempo, ainda não implementei a leitura de arquivos e nem sequer apliquei POO ao código ou separação em diferentes arquivos, tanto que a linguagem poderia muito bem ser substituida por C.</i></p>
+
+            <h2>Funcionamento do algoritmo</h2>
+
+            <p>Já vou agora adiantando que, diferentemente do código em JS resumidamente explicado acima, não irei usar, para essa primeira versão, expressões em que os operadores são representados por <i>add</i> para soma ou <i>sub</i> para subtração, mas sim pelos caracteres "+", "-", "." e "/" - respectivamente: adição, subtração, multiplicação e divisão. Talvez isso seja óbvio, mas resolvi listar os operadores porque, por algum motivo, não consegui utilizar o caractere de asterisco para fazer a multiplicação porque resultava numa espécie de "erro de lógica", já que a calculadora simplesmente não funcionava.</p>
+
+            <!--<p>Inicialmente, criei as funções <i>sum()</i>, <i>sub()</i> e <i>mlt()</i> com retorno <i>int</i> e <i>dvs()</i> com retorno <i>double</i>, sendo o objetivo o de simplificar, mas acabei percebendo depois que, em termos práticos, a existência de tais funções não era efetiva, talvez seja até redundante ou mesmo limitante (tendo em vista os retornos <i>int</i>). Mas existe a possibilidade disso me polpar tempo futuramente, criando um esboço para ampliar o código, mas isso não vem ao caso no presente momento.</p>-->
+
+            <p>Inicialmente, como primeira ação, não escrevi o algoritmo, mas sim criei as funções <i>sum()</i>, <i>sub()</i> e <i>mlt()</i> com retorno <i>int</i> e <i>dvs()</i> com retorno <i>double</i>, com o objetivo de simplificar o código, mas acabei percebendo depois que, em termos práticos, a existência dessas funções não era tão necessária, talvez fosse até redundante ou mesmo limitante (tendo em vista os retornos <i>int</i>). Mas existe a possibilidade disso me polpar tempo futuramente, criando um esboço para ampliar o código, então resolvi manter esse trecho.</p>
+
+            <p>Depois, já dentro da função <i>main()</i>, por meio de um <i>if</i>, checo se a quantidade de argumentos passados é correta. No caso, quatro argumentos que são, respectivamente, o nome do programa (implícito), o primeiro operando, o operador e o segundo operando. Caso o número de argumentos sejá inválida, diferente de quatro, o programa exibirá a mensagem de erro <i>invalid number of arguments</i>.</p>
+            <p>Além disso, criei uma string para guardar o sinal do operador ("+", "-", "." ou "/") e, tendo esse dado, simplesmente faço um <i>if...else</i> para checar se o caractere do operador é um sinal válido ou não. Sendo válido,  o programa faz a devida operação com os operandos. Não sendo, é exibida a mensagem de erro <i>invalid operator
+
+            argument</i>.</p>
+
+            <p>Para não ficar muito teórico e polpar a necessidade de abrir o github, aí está o código.</p>
+
+            <div class="code_demonstration">
+                <pre>
+                    <code class="language-cpp">#include<<b>iostream</b>>
+#include<<b>string</b>>
+
+int sum( int, int );
+int sub( int, int );
+int mlt( int, int );
+double dvs( int, int );
+
+int main( int argc, char *argv[] ) {
+
+    std::string operand(argv[2]);
+
+    if( argc == 4 ) {
+        if( operand == "+" ) {
+            std::cout << sum( std::stoi(argv[1]), std::stoi(argv[3]) ) << '\n';
+        }
+        else if( operand == "-" ){
+            std::cout << sub( std::stoi(argv[1]), std::stoi(argv[3]) ) << '\n';
+        }
+        else if( operand == "." ){
+            std::cout << mlt( std::stoi(argv[1]), std::stoi(argv[3]) ) << '\n';
+        }
+        else if( operand == "/" ){
+            std::cout << dvs( std::stoi(argv[1]), std::stoi(argv[3]) ) << '\n';
+        }
+        else {
+            std::cout << "invalid operator argument" << '\n';
+        }
+
+    }
+    else {
+        std::cout << "invalid number of arguments" << '\n';
+    }
+
+    return 0;
+}
+
+int sum( int a, int b ) {
+    return ( a + b );
+}
+int sub( int a, int b ) {
+    return ( a - b );
+}
+int mlt( int a, int b ) {
+    return ( a * b );
+}
+double dvs( int a, int b ) {
+    return ( a / b );
+}
+                    </code>
+                </pre>
+            </div>
+            <p><a href="https://github.com/KayoBS/fstream-calculator">Repositório do Github</a> para quem, ainda assim, quiser visitar.</p>
+
+            <h2>Conclusão e próximos passos</h2>
+
+            <p>Como eu já disse, criei este pequeno programa enquanto pensava em como começar o meu TCC. Não cheguei a dizer antes qual era o meu objetivo diretamente, apesar de - acredito eu - ter ficado implícito o que eu pretendo fazer futuramente. O meu TCC será, se tudo der certo, sobre a criação de uma linguagem de programação.</p>
+            <p>Ainda não li a pouca bibliografia que recolhi, mas a ideia de fazer isso já está bem consolidada na minha mente e dificilmente mudarei de ideia. Obviamente, não é com uma calculadora tão besteirol como essa que eu farei uma linguagem, mas esse é o meu pequeno primeiro passo antes de começar a complexificar isto.</p>
+            <p>Num futuro próximo, o que eu irei fazer é implementar a leitura de arquivos usando <i>std::fstream</i> para ler as expressões aritméticas em arquivos <i>.txt</i> e, também, fazer expressões maiores e mais complexas como <i>2 + 3 * 5</i> e eu já tenho uma pequena ideia de como fazer isso (talvez com recursão?).</p>
+            <p>Mas, por agora, é basicamente isso. Espero que o texto desse meu primeiro post tenha ficado claro e objetivo sem <i>'arrodeios</i> ou pleonasmos, ou quaisquer outras coisas do tipo.</p>
+
         <div>
+
+        <!--Necessário para o realce de sintáxe-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
     </body>
     <footer>
         <h3><a href="../index.html">Página inicial</a></h3>
+        <p>criado em <i>22/09/2025</i></p>
+        <p>finalizado em <i>01/10/2025</i></p>
+        <p>atualizado em <i>01/10/2025</i></p>
     </footer>
 </html>

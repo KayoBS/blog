@@ -1,0 +1,73 @@
+html {
+    font-family: arial, sans-serif;
+    width: 50%;
+
+    width: 750px;
+    /*height: 100px;*/
+
+    margin-left: auto;
+    margin-right: auto;
+
+    height: 100px;
+}
+h1 {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+p {
+    text-indent: 2em; /* Indenta a primeira linha em duas vezes o tamanho da fonte */
+}
+
+.code_demonstration {
+    font-family: 'Consolas', 'Monaco', monospace;
+    background-color : #e0e0e0;
+    border: 1px solid #ddd;
+    padding: 2px 4px;
+    white-space: nowrap;
+    border-radius: 3px;
+}
+.center {
+    width: 50%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    height: 100px;
+}
+.container {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;    /* Centraliza verticalmente */
+    height: 300px;          /* Defina uma altura para o container */
+    background-color: lightgray; /* Para visualização */
+}
+
+/*Colocar depois da inclusão do Prism*/
+pre[class*="language-"] {
+    /* Remove a sombra do papel flutuante */
+    box-shadow: none !important;
+    /* Alguns temas usam uma borda que pode parecer uma sombra */
+    border: none !important;
+}
+/* Garante que nenhum elemento interno crie a dobra */
+pre[class*="language-"]::before,
+pre[class*="language-"]::after {
+    /* Remove os pseudo-elementos que criam a "dobra" ou "orelha" no canto */
+    content: none !important;
+}
+
+pre {
+    background-color : #e0e0e0;
+/*
+    padding: 15px;
+    border-radius: 5px;
+*/
+    overflow-x: auto;
+}
+
+pre code {
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.7em;
+
+    white-space: pre;
+}
