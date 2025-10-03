@@ -17,6 +17,9 @@ h1 {
 p {
     text-indent: 2em; /* Indenta a primeira linha em duas vezes o tamanho da fonte */
 }
+h1, h2, h3, h4, h5, p {
+    color: #111122
+}
 
 .code_demonstration {
     font-family: 'Consolas', 'Monaco', monospace;
