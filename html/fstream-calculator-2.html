@@ -21,13 +21,13 @@
 
             <h2>Relembrando o post anterior...</h2>
 
-            <p>Para começar esse novo post, cai bem relembrar brevemente o que foi feito na versão anterior desse projeto, que pode ser encontrada <a href="calculator.html">aqui</a>. Basicamente, a calculadora se resumia a quatro funções para as operações [<i>sum()</i>, <i>sub()</i>, <i>mtl()</i> e <i>dvs()</i>] e uma leitura dos argumentos passados para a função <i>main()</i>, que seguiam a seguinte forma, ignorando a chamada do programa no terminal: <i>primeiro operando</i> + <i>operador</i> + <i>segundo operando</i>.</p>
+            <p>Para começar esse novo post, cai bem relembrar brevemente o que foi feito na versão anterior desse projeto, que pode ser encontrada <a href="calculator.html">aqui</a>. Basicamente, a calculadora que eu tinha então criado se resumia a quatro funções para as operações básicas de soma, subtração, multiplicação e divisão [<i>sum()</i>, <i>sub()</i>, <i>mtl()</i> e <i>dvs()</i>], além de uma leitura dos argumentos passados para a função <i>main()</i>, que seguiam a seguinte forma, ignorando a chamada do programa no terminal: <i>primeiro operando</i> + <i>operador</i> + <i>segundo operando</i>.</p>
 
             <p class="no_indent">Exemplo: <i>./main.out 3 . 2</i></p>
 
-            <p>A saída no terminal será <i>6</i>, pois "." é o operador de multiplicação que, como já explicado, não é o convencional asterisco por estranhos problemas que ele gerava na execução. Em um futuro próximo ainda verei o porquê desses problemas, para trocar essa especificidade pelo que é convencional e comum de se usar, mas era assim e por enquanto continuará sendo assim.</p>
+            <p>Neste exemplo, a saída no terminal será <i>6</i>, pois "." é o operador de multiplicação que, como já explicado, não é o convencional asterisco por estranhos problemas que este gerava na execução. Em um futuro próximo ainda verei o porquê desses problemas, para trocar essa especificidade pelo que é convencional e comum de se usar, mas era assim e por enquanto continuará sendo assim.</p>
 
-            <p>Era apenas isso que a antiga versão do projeto fazia - lia dois operandos, um operador e imprimia o resultado na tela. Ainda faltava o principal que era a leitura de arquivos e muitas coisas básicas, como a separação dos códigos em diferentes arquivos. Mas isso era até pouco tempo atrás...</p>
+            <p>Não ia além disso o que a antiga versão do projeto fazia - apenas lia dois operandos, um operador e imprimia o resultado na tela. Ainda faltava o principal que era a leitura de arquivos e muitas coisas básicas, como a separação dos códigos em diferentes arquivos. Mas isso era até pouco tempo atrás...</p>
 
 
             <h2>Primeiras alterações</h2>
@@ -60,15 +60,66 @@ double dvs(int a, int b) { return (static_cast<float>(a) / b); }</code>
                 </pre>
             </div>
 
-            <p>Além disso, tendo em vista que eu teria que criar outra biblioteca autoral mais para a frente (não lembro se fiz isso antes ou depois de escrever essa dita outra biblioteca), criei o arquivo <i>lib.hpp</i> dentro daquela pasta <i>lib/</i> para incluir todos os arquivos que eu fosse criar com apenas uma linha de código no arquivo principal.</i></p>
+            <p>Além disso, tendo em vista que eu teria que criar outra biblioteca autoral mais para a frente (não lembro se fiz isso antes ou depois de escrever essa dita outra biblioteca), criei o arquivo <i>lib.hpp</i> dentro daquela pasta <i>lib/</i> para incluir todos os arquivos que eu fosse criar com apenas uma linha de código no arquivo principal. Isso é um hábito meu, gosto de colocar tudo que eu vou precisar dentro de um arquivo que serve tão somente como empacotador de bibliotecas.</i></p>
 
-            <p>Assim, pude simplesmente escrever <i>#include "lib/lib.hpp"</i> no meu <i>main.cpp</i></p>
+            <p>Assim, pude simplesmente escrever <i>#include "lib/lib.hpp"</i> no meu <i>main.cpp</i>, o arquivo principal.</p>
 
-            <h2>O uso da biblioteca <i>fstream</i></h2>
-            <p>Escrevendo acabei percebendo que, até agora, já estou a um post e mais um pouco falando sobre este projeto e eu nem sequer disse o seu nome. É <i>fstream-calculator</i>, que é o mesmo nome do <a href="https://github.com/KayoBS/fstream-calculator">repositório do Github</a>.</p>
+
+            <h2>O uso da biblioteca <i>fstream</i> - primeiras linhas</h2>
+
+            <p>Escrevendo acabei percebendo que, até agora, já estou a um post e mais um pouco falando sobre este projeto e eu nem sequer disse o seu nome. Talvez seja dedutível pelo título desta página e pelo seu nome no Github. Mas para que não hajam dúvidas, é <i>fstream-calculator</i>, que é o mesmo nome do <a href="https://github.com/KayoBS/fstream-calculator">repositório do Github</a>.</p>
+
+            <!--
+            <p>Mas indo para o assunto que é de interesse desse "capítulo", já tive experiências anteriores com a bilbiotaca <i>std::fstream</i>, estudando C++. Porém, nunca foi nada rigoroso, muito menos profundo e, em pouco tempo, eu acabava por esquecer. Isso me aconteceu algumas vezes, estudava e esquecia pouco tempo depois, mas espero que, com esse post, eu consiga não começar do absoluto um, para não dizer zero, quando eu acabar esquecendo mais uma vez.</p>
+            -->
+
+            <p>Mas indo para o assunto que é de interesse desse "capítulo", já tive experiências anteriores com a bilbiotaca <i>std::fstream</i>, estudando C++. Porém, nunca foi nada rigoroso, muito menos profundo e, em pouco tempo, eu acabava por esquecer. Isso me aconteceu algumas vezes: estudava e esquecia pouco tempo depois. Mas espero que, com esse post, eu consiga não começar do absoluto um, para não dizer zero, quando eu acabar esquecendo mais uma vez.</p>
+
+            <p>Agora verdadeiramente falando do que interessa, cabe uma pequena explanação sobre a biblioteca em questão. A <i>fstream</i> é, basicamente, uma abreviação da palavra do inglês <i>file stream</i> - fluxo de arquivo, em português. Ela é uma biblioteca da <i>Standard Template Library</i> e serve para a manipulação de arquivos no quesito de leitura e escrita, possibilitando usar informações contidas neles e escrever informações também, o que pode ser usado para persistência de dados.</p>
+
+            <p>Também é importante ressaltar que, em se tratando de manipulação de arquivos, são usadas as classes <i>std::ifstream</i> e <i>std::ofstream</i> para, respectivamente, leitura e escrita, mas também se pode usar a classe <i>std::fstream</i> (exatamente o mesmo nome da biblioteca) para leitura e escrita de forma genérica, simploriamente alternando entre modos. Todas elas têm como parâmetro para o construtor uma <i>string</i> que guarda o caminho relativo do arquivo, tendo como base o diretório atual do programa. Não sei se consegui sintetizar da melhor maneira possível o funcionamento básico dessa biblioteca, talvez tenha até sacrificado um pouco do meu português, mas acretido que tenha ficado passível de entendimento.</p>
+
+            <!--
+            <p>Tendo em vista essas duas opções de uso de classes, acabei optando por escrever o código de leitura e escrita baseado em dois objetos diferentes, porque o código usando apenas <i>std::fstream</i> poderia ficar, a  meu ver, muito bagunçado. Os objetos em questão são o <i>std::ifstream inFile</i> e o <i>std::ofstream outFile</i>. No entanto, para que tudo funcionasse bem, acabei tendo que criar algumas variáveis à parte para poder girar as engrenagens do programa, que no caso são as do código a seguir.</p>-->
+
+            <p>Tendo em vista essas duas opções de uso de classes, acabei optando por escrever o código de leitura e escrita baseado em dois objetos diferentes, porque o código usando apenas <i>std::fstream</i> poderia ficar, a  meu ver, muito bagunçado. Os objetos em questão são:</p>
+
+            <div>
+                <pre>
+                    <code class="language-cpp">std::ifstream inFile(inputName);
+std::ofstream outFile(outputName);</code>
+            </div>
+
+            <p>No entanto, para que tudo funcionasse bem, acabei tendo que criar algumas variáveis à parte para poder girar as engrenagens do programa, que no caso são as do trecho de código a seguir.</p>
+
+            <div>
+                <pre>
+                    <code class="language-cpp">//{...}
+// CRIAÇÃO DE VARIÁVEIS
+std::string inputName(argv[1]);
+std::string outputName(argv[2]);
+// variáveis dos operadores
+int operand1, operand2;
+double result;
+
+std::ifstream inFile(inputName);   // arquivo de leitura
+std::ofstream outFile(outputName); // arquivo de escrita
+
+// variável para guardar a expressão
+std::string expression;
+//{...}</code>
+            </div>
+
+
+            <h2>O uso da biblioteca <i>fstream</i> - leitura e escrita dos arquivos</h2>
+
+            <p>parágrafo 1</p>
+
             <p>parágrafo 2</p>
 
+
             <h2>Criação do <i>tokenizer</i> e a separação de arquivos</h2>
+
             <p>Não vou mentir, penei bastante para fazer o tokenizador. E a pior parte foi o fato de ter sido por causa de uma confusão em relação ao uso de ponteiros... Um simples "*" no canto errado estava sendo o responsável pela minha dor de cabeça.</p>
             <p>parágrafo 2</p>
 
@@ -77,7 +128,7 @@ double dvs(int a, int b) { return (static_cast<float>(a) / b); }</code>
             <p>parágrafo 2</p>
 
             <h2>Funcionamento do algoritmo principal</h2>
-            <p>parágrafo 1</p>
+            <p>E lá vamos nós - agora - para a parte, na minha opnião, mais maçante deste artígo.</p>
             <p>parágrafo 2</p>
 
             <!-- código
