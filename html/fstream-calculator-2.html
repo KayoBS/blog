@@ -18,8 +18,54 @@
             <p>Mais atualizações ainda estão por vir antes da versão final.</p>
             <br>
 
+
             <h2>Relembrando o post anterior...</h2>
-            <p>parágrafo 1</p>
+
+            <p>Para começar esse novo post, cai bem relembrar brevemente o que foi feito na versão anterior desse projeto, que pode ser encontrada <a href="calculator.html">aqui</a>. Basicamente, a calculadora se resumia a quatro funções para as operações [<i>sum()</i>, <i>sub()</i>, <i>mtl()</i> e <i>dvs()</i>] e uma leitura dos argumentos passados para a função <i>main()</i>, que seguiam a seguinte forma, ignorando a chamada do programa no terminal: <i>primeiro operando</i> + <i>operador</i> + <i>segundo operando</i>.</p>
+
+            <p class="no_indent">Exemplo: <i>./main.out 3 . 2</i></p>
+
+            <p>A saída no terminal será <i>6</i>, pois "." é o operador de multiplicação que, como já explicado, não é o convencional asterisco por estranhos problemas que ele gerava na execução. Em um futuro próximo ainda verei o porquê desses problemas, para trocar essa especificidade pelo que é convencional e comum de se usar, mas era assim e por enquanto continuará sendo assim.</p>
+
+            <p>Era apenas isso que a antiga versão do projeto fazia - lia dois operandos, um operador e imprimia o resultado na tela. Ainda faltava o principal que era a leitura de arquivos e muitas coisas básicas, como a separação dos códigos em diferentes arquivos. Mas isso era até pouco tempo atrás...</p>
+
+
+            <h2>Primeiras alterações</h2>
+
+            <p>A primeira coisa que eu fui fazer, que era uma das coisas mais importantes de se fazer (se não, a coisa mais importante) e que eu não tinha feito até então era a separação das funções em diferentes arquivos. Isso é especialmente necessário para que o código fique mais organizado, em espécies de "pacotes de código", o que ajuda em muito a fazer do projeto mais expansível. </p>
+
+            <p>Não é nada de outro mundo, apenas fiz dois arquivos adicionais, que no caso eram o <i>operations.hpp</i> e o <i>operations.cpp</i>, respectivamente declaração e definição,   dentro de uma pasta <i>operations/</i> dentro de outra chamada de <i>lib/</i>. Se eu tivesse apenas criado um arquivo <i>.hpp</i> que incluísse as declarações e as definições, não haveria a necessidade de mudar o comando de complilação, mas como o fiz, ficou da seguinte forma: <i>g++ main.cpp lib/operations/operations.cpp -o main.out</i></p>
+
+            <div>
+                <pre>
+                    <code class="language-cpp">//operations.hpp
+#ifndef FSTCALC_OPERATIONS_HPP_INCLUDED
+#define FSTCALC_OPERATIONS_HPP_INCLUDED
+
+int sum(int, int);
+int sub(int, int);
+int mlt(int, int);
+double dvs(int, int);
+
+#endif</code>
+                </pre>
+                <pre>
+                    <code class="language-cpp">//operations.cpp
+#include "operations.hpp"
+
+int sum(int a, int b) { return (a + b); }
+int sub(int a, int b) { return (a - b); }
+int mlt(int a, int b) { return (a * b); }
+double dvs(int a, int b) { return (static_cast<float>(a) / b); }</code>
+                </pre>
+            </div>
+
+            <p>Além disso, tendo em vista que eu teria que criar outra biblioteca autoral mais para a frente (não lembro se fiz isso antes ou depois de escrever essa dita outra biblioteca), criei o arquivo <i>lib.hpp</i> dentro daquela pasta <i>lib/</i> para incluir todos os arquivos que eu fosse criar com apenas uma linha de código no arquivo principal.</i></p>
+
+            <p>Assim, pude simplesmente escrever <i>#include "lib/lib.hpp"</i> no meu <i>main.cpp</i></p>
+
+            <h2>O uso da biblioteca <i>fstream</i></h2>
+            <p>Escrevendo acabei percebendo que, até agora, já estou a um post e mais um pouco falando sobre este projeto e eu nem sequer disse o seu nome. É <i>fstream-calculator</i>, que é o mesmo nome do <a href="https://github.com/KayoBS/fstream-calculator">repositório do Github</a>.</p>
             <p>parágrafo 2</p>
 
             <h2>Criação do <i>tokenizer</i> e a separação de arquivos</h2>

@@ -20,7 +20,9 @@ p {
 h1, h2, h3, h4, h5, p {
     color: #111122
 }
-
+.no_indent {
+    text-indent: 0;
+}
 .code_demonstration {
     font-family: 'Consolas', 'Monaco', monospace;
     background-color : #e0e0e0;
